@@ -38,9 +38,14 @@ namespace WebApplication5.Controllers
         [HttpPut]
         public bool Put(Student student)
         {
-           int index= Student.Students.FindIndex(S=>S.Id==student.Id);
-            Student.Students[index] = student;
-            return true;
+            int index= Student.Students.FindIndex(S=>S.Id==student.Id);
+            if(index==0)
+            {
+                //Student.Students[index] = student;
+                Student.Students.Insert(index,student);
+                return true;
+            }
+            return false;
         }
     }
 
