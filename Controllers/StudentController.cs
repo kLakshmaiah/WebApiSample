@@ -9,15 +9,20 @@ namespace WebApplication5.Controllers
     public class StudentController : ControllerBase
     {
         [HttpGet]
-        public List<Student> Get()
+        public ActionResult<List<Student>> Get()
         {
-            return Student.Students;
+            Student.Students = new List<Student>();
+            if(Student.Students.Count == 0)
+            {
+                return BadRequest();
+            }
+            return Ok(Student.Students);
         }
         [HttpPost]
-        public Student Post(Student student)
+        public IActionResult Post(Student student)
         {
             Student.Students.Add(student);
-            return student;
+            return StatusCode(201,student);
         }
 
         [HttpDelete]
