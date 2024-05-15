@@ -8,7 +8,6 @@ namespace WebApplication5.Controllers
     public class ConstrucorController : ControllerBase
     {
        readonly ConstructorClass? constructorClass ;
-
         public ConstrucorController()
         {
             constructorClass = new ConstructorClass(new List<Vechile>
