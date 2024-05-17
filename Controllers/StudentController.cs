@@ -8,20 +8,50 @@ namespace WebApplication5.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<Student>> Get()
+        //[HttpGet]
+        //public ActionResult<List<Student>> Get()
+        //{
+        //    Student.Students = new List<Student>();
+        //    if(Student.Students.Count == 0)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(Student.Students);
+        //}
+        //[Route("vinay")]
+        //[HttpGet]
+        //public ActionResult Get()
+        //{
+        //    Student.Students = new List<Student>();
+        //    if(Student.Students.Count == 0)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(Student.Students);
+        //}
+        //[Route("vinay")]
+        [HttpGet("vinay/{vinay1?}",Name ="ccc")]
+        public IActionResult Get(int? vinay1)
         {
-            Student.Students = new List<Student>();
-            if(Student.Students.Count == 0)
+            Student? student = Student.Students?.Where(s => s.Id == vinay1)?.FirstOrDefault();
+            if (student is null)
             {
-                return BadRequest();
+                return NotFound();
             }
-            return Ok(Student.Students);
+
+            // Generate the URL for this route
+            string url = Url.RouteUrl("ccc", new { vinay1 = vinay1 });
+
+            // Return the student and the URL in the response
+            return Ok(new { student = student, url = url });
         }
+
+
         [HttpPost]
         public IActionResult Post(Student student)
         {
             Student.Students.Add(student);
+            string url = Url.RouteUrl("ccc", new { vinay1 = Student.Students });
             return StatusCode(201,student);
         }
 
