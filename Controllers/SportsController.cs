@@ -18,12 +18,8 @@ namespace WebApplication5.Controllers
 
         [HttpPost]
         public IActionResult Post(Sports sports)
-        {   
-            if(ModelState.IsValid)
-            {
-                return Ok(sports);
-            }
-            return Ok(ModelState.Values.SelectMany(e => e.Errors).Select(e => e.ErrorMessage).ToList());
+        {
+            return Ok(sports);
         }
     }
 }
