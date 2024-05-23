@@ -1,6 +1,7 @@
 ﻿using DataAnnotationsExtensions;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebApplication5.CustomValidations;
 
 namespace WebApplication5.Models
 {
@@ -29,10 +30,11 @@ namespace WebApplication5.Models
         [EmailAddress(ErrorMessage ="Invalid {0}")]
         public string? EmailId { get; set; }
         //[Min(2012,ErrorMessage ="Joinging Year must be 2012 or above")]
+        [MinimumYear(2000,ErrorMessage = "Year Must be greater than {0} ,your given value is {1}")]
         public DateTime JoiningDate { get; set; }
        
         public double Year1 { get; set; }
-        [Compare("Year1", ErrorMessage = " year1 and year must be same")]
+        [Compare("Year1", ErrorMessage = "year1 and year must be same")]
         public double Year { get; set; }
     }
 }
