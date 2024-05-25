@@ -1,4 +1,5 @@
-﻿using WebApplication5.IRepository;
+﻿using WebApplication5.Data;
+using WebApplication5.IRepository;
 using WebApplication5.Model;
 
 namespace WebApplication5.Repository
@@ -7,22 +8,36 @@ namespace WebApplication5.Repository
     {
         List<Student> IStudentService.DeleteStudent(int id)
         {
-            throw new NotImplementedException();
+            Student? student = Student.Students.FirstOrDefault(s => s.Id == id);
+           bool isDeleted  =Student.Students.Remove(student);
+            if (isDeleted)
+            return Student.Students;
+            else
+              return  new List<Student>();
         }
 
         List<Student> IStudentService.GetAllStudents()
         {
-            throw new NotImplementedException();
+            return Student.Students;
         }
 
         Student IStudentService.GetStudent(int id)
         {
-            throw new NotImplementedException();
+            Student? student=Student.Students.FirstOrDefault(s=> s.Id == id);
+            if(student is not null)
+            {
+                return student;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        List<Student> IStudentService.PostStudent(string id)
+        List<Student> IStudentService.PostStudent(Student student)
         {
-            throw new NotImplementedException();
+            Student.Students.Add(student);
+            return Student.Students;
         }
 
         List<Student> IStudentService.UpdateStudent(Student student)

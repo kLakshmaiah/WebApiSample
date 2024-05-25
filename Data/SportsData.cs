@@ -3,7 +3,7 @@ using WebApplication5.Models;
 
 namespace WebApplication5.Data
 {
-    public class SportsData
+    public static class SportsData
     {
         public static List<Sports> Sports { get; set; }
         static SportsData()

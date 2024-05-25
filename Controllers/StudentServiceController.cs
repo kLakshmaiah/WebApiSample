@@ -10,17 +10,50 @@ namespace WebApplication5.Controllers
     [ApiController]
     public class StudentServiceController : ControllerBase
     {
-        IStudentService? _studentService {  get; set; }
+        IStudentService? _studentService { get; set; }
 
         public StudentServiceController()
         {
-            StudentService student=new StudentService();
-            _studentService = student;
+            //StudentService student=new StudentService();
+            _studentService = new StudentService();//cross object
         }
         [HttpGet]
-        public IActionResult GetSudents()
+        public IActionResult GetAllSudents()
         {
-            return null;
+            return Ok(_studentService?.GetAllStudents());
         }
+        [HttpGet("{id}")]
+        public IActionResult GetStudent(int id) 
+        {   
+           Student? student=  _studentService?.GetStudent(id);
+            if(student is not null)
+                return Ok(student);
+            else
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult Post(Student student)
+        {
+            return Ok(_studentService?.PostStudent(student));
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Student student)
+        {
+            int id=Convert.ToInt32(student.Id);
+            //Student deleteStudent=Student.students.where(s=>s.Id=student.Id)
+            //							.FirstOrDefault();
+            List<Student>? deleteStudent1 = _studentService?.DeleteStudent(id);
+
+            if (deleteStudent1 is not null)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
+
     }
 }
