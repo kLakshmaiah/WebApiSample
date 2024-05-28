@@ -8,28 +8,28 @@ namespace WebApplication5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentServiceController : ControllerBase
+    public class StudentService1Controller : ControllerBase
     {
         IStudentService? _studentService { get; set; }
 
-        public StudentServiceController()
+        public StudentService1Controller(IStudentService studentService)
         {
-         //   StudentService studentService=new StudentService();
-            _studentService = new StudentService();//cross object
+           _studentService = studentService;//new StudentService()
         }
         [HttpGet]
         public IActionResult GetAllSudents()
         {
-            return Ok(_studentService?.GetAllStudents());
+
+            return Ok( _studentService?.InstanceId);
         }
         [HttpGet("{id}")]
-        public IActionResult GetStudent(int id) 
-        {   
-           Student? student=  _studentService?.GetStudent(id);
-            if(student is not null)
+        public IActionResult GetStudent(int id)
+        {
+            Student? student = _studentService?.GetStudent(id);
+            if (student is not null)
                 return Ok(student);
             else
-            return NotFound();
+                return NotFound();
         }
         [HttpPost]
         public IActionResult Post(Student student)
@@ -40,7 +40,7 @@ namespace WebApplication5.Controllers
         [HttpDelete]
         public IActionResult Delete(Student student)
         {
-            int id=Convert.ToInt32(student.Id);
+            int id = Convert.ToInt32(student.Id);
             //Student deleteStudent=Student.students.where(s=>s.Id=student.Id)
             //							.FirstOrDefault();
             List<Student>? deleteStudent1 = _studentService?.DeleteStudent(id);
@@ -54,6 +54,5 @@ namespace WebApplication5.Controllers
                 return Ok(false);
             }
         }
-
     }
 }

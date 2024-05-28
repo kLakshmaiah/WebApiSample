@@ -1,7 +1,13 @@
+using WebApplication5.IRepository;
+using WebApplication5.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Service or DI(Dependency)
+builder.Services.Add(new ServiceDescriptor(
+    typeof(IStudentService),
+    typeof(StudentService),
+    ServiceLifetime.Transient));//
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,27 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication5.Data;
-using WebApplication5.IRepository;
+﻿using WebApplication5.IRepository;
 using WebApplication5.Model;
 
 namespace WebApplication5.Repository
 {
-    public class StudentService : IStudentService
+    public class StudentService1:IStudentService
     {
         public Guid InstanceId { get; set; }
-        public StudentService() 
+        public StudentService1()
         {
-           InstanceId = Guid.NewGuid();
-        
+            InstanceId = Guid.NewGuid();
+
         }
-       
         List<Student> IStudentService.DeleteStudent(int id)
         {
             Student? student = Student.Students.FirstOrDefault(s => s.Id == id);
-           bool isDeleted  =Student.Students.Remove(student);
+            bool isDeleted = Student.Students.Remove(student);
             if (isDeleted)
-            return Student.Students;
+                return Student.Students;
             else
-              return  new List<Student>();
+                return null;
         }
 
         List<Student> IStudentService.GetAllStudents()
@@ -31,14 +28,14 @@ namespace WebApplication5.Repository
 
         Student IStudentService.GetStudent(int id)
         {
-            Student? student=Student.Students.FirstOrDefault(s=> s.Id == id);
-            if(student is not null)
+            Student? student = Student.Students.FirstOrDefault(s => s.Id == id);
+            if (student is not null)
             {
                 return student;
             }
             else
             {
-                return null;
+                return new Student();
             }
         }
 

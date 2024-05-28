@@ -5,6 +5,7 @@ namespace WebApplication5.IRepository
     //IClass
     public interface IStudentService
     {
+        Guid InstanceId { get; }
         List<Student> GetAllStudents();
         Student GetStudent(int id);
         List<Student> PostStudent(Student student);
