@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Linq;
+using WebApplication5.IRepository;
 using WebApplication5.Models;
+using WebApplication5.Repository;
 
 namespace WebApplication5.Controllers
 {
@@ -9,14 +13,18 @@ namespace WebApplication5.Controllers
     [ApiController]
     public class ConfigurationController : ControllerBase
     {
-        public ConfigurationController(IConfiguration configuration,ILogger<ConfigurationController> logger) 
+        public ConfigurationController(IConfiguration configuration,ILogger<ConfigurationController> logger, IStudentService studentService,IOptions<DatabaseValue> options) 
         {
             Configuration = configuration;
             Logger = logger;
+            StudentService = studentService;
+            Options = options;
         }
 
         public IConfiguration Configuration { get; }
         public ILogger<ConfigurationController> Logger { get; }
+        public IStudentService StudentService { get; }
+        public IOptions<DatabaseValue> Options { get; }
 
         [HttpGet]
         public IActionResult Get()
@@ -31,12 +39,12 @@ namespace WebApplication5.Controllers
             string ConnectionString = configurationsection.GetValue<string>("ConnectionString");
             #endregion
             #region  Through Class
-            DatabaseValue databaseValue =   Configuration.GetSection("Database").Get<DatabaseValue>();
-
+            DatabaseValue databaseValue =  StudentService.GetDatabaseValuesFromConfiugration(configuration: Configuration, secotionName: "Database");//configuration:Configuration,secotionName: "IStudentService"
+            DatabaseValue databaseValue2 = Configuration.GetSection("Database").Get<DatabaseValue>();
             DatabaseValue databaseValue1 =new DatabaseValue();
                 Configuration.GetSection("Database").Bind(databaseValue1);
             #endregion
-            return Ok(databaseValue1.ConnectionString);
+            return Ok(Options.Value);
         }
     }
 }

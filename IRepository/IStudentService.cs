@@ -1,4 +1,5 @@
 ﻿using WebApplication5.Model;
+using WebApplication5.Models;
 
 namespace WebApplication5.IRepository
 {
@@ -13,6 +14,8 @@ namespace WebApplication5.IRepository
         List<Student> DeleteStudent(int id);
 
         List<Student> UpdateStudent(Student student);
+
+        DatabaseValue GetDatabaseValuesFromConfiugration(IConfiguration configuration,string secotionName);
 
     }
 }

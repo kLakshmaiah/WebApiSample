@@ -1,5 +1,7 @@
-﻿using WebApplication5.IRepository;
+﻿using Microsoft.Extensions.Configuration;
+using WebApplication5.IRepository;
 using WebApplication5.Model;
+using WebApplication5.Models;
 
 namespace WebApplication5.Repository
 {
@@ -48,6 +50,12 @@ namespace WebApplication5.Repository
         List<Student> IStudentService.UpdateStudent(Student student)
         {
             throw new NotImplementedException();
+        }
+
+        DatabaseValue IStudentService.GetDatabaseValuesFromConfiugration(IConfiguration configuration, string secotionName)
+        {
+            DatabaseValue databaseValue = configuration.GetSection(secotionName).Get<DatabaseValue>();
+            return databaseValue;
         }
     }
 }
