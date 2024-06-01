@@ -7,10 +7,10 @@ using WebApplication5.Data;
 
 #nullable disable
 
-namespace WebApplication5.Migrations
+namespace WebApplication5.Migrations.RailwayDb
 {
-    [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RailwayDbContext))]
+    partial class RailwayDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace WebApplication5.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApplication5.Models.Teacher", b =>
+            modelBuilder.Entity("WebApplication5.Models.Station", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,18 +29,27 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(256)");
 
-                    b.Property<string>("TeachingClasses")
-                        .HasColumnType("Varchar(256)");
+                    b.Property<string>("StationCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TeachersList");
+                    b.ToTable("RailwayStations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Nellore,Andrapradesh",
+                            Name = "NelloreRst",
+                            StationCode = "523434"
+                        });
                 });
 #pragma warning restore 612, 618
         }

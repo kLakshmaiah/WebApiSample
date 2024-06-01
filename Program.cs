@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 //    typeof(StudentService),
 //    ServiceLifetime.Transient));//
 builder.Services.AddDbContext<SchoolDbContext>(options => options.UseSqlServer(builder.Configuration["Database:ConnectionString"]));
+builder.Services.AddDbContext<RailwayDbContext>();
 //builder.Services.AddScoped<StudentService>();
 builder.Services.AddTransient<IStudentService,StudentService>();
 builder.Services.Configure<DatabaseValue>(builder.Configuration.GetSection("Database"));

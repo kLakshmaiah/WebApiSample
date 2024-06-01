@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication5.Models
 {
+    [Table("TeachersList")]
     public class Teacher
     {
         [Key]//primary key and identity
