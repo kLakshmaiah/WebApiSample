@@ -19,5 +19,11 @@ namespace WebApplication5.Data
                 );
         }
         public DbSet<Station> Stations { get; set; }
+
+        public List<Station> Sp_GetAllStations()
+        {
+          List<Station> stations=  Stations.FromSqlRaw("EXECUTE [dbo].[sp_GetAllStations]").ToList();
+            return stations;
+        }
     }
 }

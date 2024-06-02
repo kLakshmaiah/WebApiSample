@@ -18,7 +18,7 @@ namespace WebApplication5.Controllers
         [HttpGet]
         public IActionResult GetAllStations()
         {
-            return Ok(dbContext.Stations.ToList());
+            return Ok(dbContext?.Sp_GetAllStations());
         }
         [HttpPost]
         public IActionResult CreateStation(Station station)
