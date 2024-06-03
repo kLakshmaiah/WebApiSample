@@ -25,8 +25,9 @@ namespace WebApplication5.Controllers
         {
             try
             {
-                dbContext.Stations.Add(station);
-                int numberofrecordsinserted = dbContext.SaveChanges();
+                //dbContext.Stations.Add(station);
+                //int numberofrecordsinserted = dbContext.SaveChanges();
+                int numberofrecordsinserted= dbContext.SpInsertRailwayStations(station);
                 if (numberofrecordsinserted == 0)
                 {
                     return BadRequest(station);

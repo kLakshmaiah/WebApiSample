@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using WebApplication5.Migrations.RailwayDb;
 using WebApplication5.Models;
 
 namespace WebApplication5.Data
@@ -24,6 +26,19 @@ namespace WebApplication5.Data
         {
           List<Station> stations=  Stations.FromSqlRaw("EXECUTE [dbo].[sp_GetAllStations]").ToList();
             return stations;
+        }
+
+        public int SpInsertRailwayStations(Station station)
+        {
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter($"@{nameof(station.Name)}",station.Name),
+                new SqlParameter($"@{nameof(station.Address)}",station.Address),
+                new SqlParameter($"@{nameof(station.StationCode)}",station.StationCode),
+                new SqlParameter($"@{nameof(station.NumberOfTracks)}",station.NumberOfTracks),
+            };
+           int numberofrecordseffected= Database.ExecuteSqlRaw($"EXEC [dbo].[Sp_Insert_RailwayStation] @{nameof(station.Name)},@{nameof(station.Address)},@{nameof(station.StationCode)},@{nameof(station.NumberOfTracks)}", sqlParameters);
+            return numberofrecordseffected;
         }
     }
 }
